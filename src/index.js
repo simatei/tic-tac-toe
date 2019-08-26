@@ -23,6 +23,9 @@ class Board extends React.Component {
   handleClick(i){
     const squares = this.state.squares.slice(); // slice creates a copy of the array
                                                 // to copy instead of modifying the existing array
+    if (calculateWinner(squares) || squares[i]){
+      return;
+    }
     squares[i] = this.state.xIsNext ? 'X': 'O';
     this.setState(
       {squares: squares,
