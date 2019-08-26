@@ -16,14 +16,19 @@ class Board extends React.Component {
     super(props);
     this.state ={
       squares: Array(9).fill(null), //set board initial state to contain array of nine nulls
+      xIsNext: true, // Boolean to be flipped to determine which player goes next X takes first
     };
   }
 
   handleClick(i){
     const squares = this.state.squares.slice(); // slice creates a copy of the array
                                                 // to copy instead of modifying the existing array
-    squares[i] = 'X';
-    this.setState({squares: squares});
+    squares[i] = this.state.xIsNext ? 'X': 'O';
+    this.setState(
+      {squares: squares,
+       xIsNext: !this.state.xIsNext,
+      }
+      );
   }
 
   renderSquare(i) {
@@ -34,7 +39,7 @@ class Board extends React.Component {
   };
 
   render() {
-    const status = 'Next player: X';
+    const status = 'Next player: ' + (this.state.xIsNext ? 'X':'O');
 
     return (
       <div>
